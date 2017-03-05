@@ -16,8 +16,8 @@ PriceEstimatorService.prototype.estimatePrice = function (data, callback) {
         }
         else {
             var priceEstimate = BASE_FARE
-                + PER_KM_CHARGE * result.distance.value / 1000
-                + PER_MIN_CHARGE * result.duration.value / 60;
+                + PER_KM_CHARGE * (result.distance.value / 1000).toFixed(2)
+                + PER_MIN_CHARGE * (result.duration.value / 60).toFixed(2);
             callback(null, { priceEstimate: priceEstimate.toFixed(2) });
         }
     });
