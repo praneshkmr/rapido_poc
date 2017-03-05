@@ -3,12 +3,12 @@ var priceEstimatorService = new PriceEstimatorService();
 
 var data = {
     point1: {
-        lat: 10.995486,
-        lng: 76.961382
+        lat: 13.011134,
+        lng: 77.659195
     },
     point2: {
-        lat: 11.039558,
-        lng: 77.039816
+        lat: 13.197935,
+        lng: 77.703546
     }
 }
 
