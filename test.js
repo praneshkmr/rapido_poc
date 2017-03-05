@@ -1,5 +1,5 @@
-var GoogleMapsService = require('./app/services/GoogleMapsServics');
-var googleMapsService = new GoogleMapsService();
+var PriceEstimatorService = require('./app/services/PriceEstimatorService');
+var priceEstimatorService = new PriceEstimatorService();
 
 var data = {
     point1: {
@@ -12,7 +12,7 @@ var data = {
     }
 }
 
-googleMapsService.calculateDistAndTime(data, function (err, result) {
+priceEstimatorService.estimatePrice(data, function (err, result) {
     if (err) {
         console.log(err)
     }
