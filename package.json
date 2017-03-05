@@ -1,0 +1,11 @@
+{
+  "name": "rapido_poc",
+  "version": "1.0.0",
+  "description": "POC for Rapido where Bangalore City is grouped into Clusters and Surge Prices are Calculated for each cluster",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "praneshkmr@gmail.com",
+  "license": "ISC"
+}
