@@ -12,10 +12,10 @@ GoogleMapsService.prototype.calculateDistAndTime = function (data, callback) {
     googleMapsClient
         .distanceMatrix({
             origins: [
-                point1.lat + ',' + point1.lng
+                point1.lat + ',' + point1.lon
             ],
             destinations: [
-                point2.lat + ',' + point2.lng
+                point2.lat + ',' + point2.lon
             ]
         }, function (err, response) {
             if (err) {
