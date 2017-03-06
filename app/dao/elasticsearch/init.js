@@ -6,6 +6,8 @@ var uriUtil = new URIUtil();
 var elasticsearchConfig = {
     "host": "localhost",
     "port": 9200,
+    "username": "",
+    "password": "",
     "indices": {
         "index": "rapido",
         "type_locations": "locations"

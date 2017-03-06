@@ -40,4 +40,11 @@
 
 var LocationService = require('./app/services/LocationService');
 var locationService = new LocationService();
-locationService.setRandomLocations(function(){});
+locationService.buildBoundary(function (err, result) {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        console.log(require('util').inspect(result, false, null));
+    }
+});

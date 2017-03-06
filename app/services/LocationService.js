@@ -58,6 +58,7 @@ LocationService.prototype.setRandomLocations = function (callback) {
             });
         },
         function (cb) {
+            console.log(locations);
             locationSearch.indexLocations(locations, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -72,6 +73,10 @@ LocationService.prototype.setRandomLocations = function (callback) {
         console.log(result);
         callback(err, result);
     });
+}
+
+LocationService.prototype.buildBoundary = function (callback) {
+    locationSearch.buildBoundary(callback);
 }
 
 module.exports = LocationService;
