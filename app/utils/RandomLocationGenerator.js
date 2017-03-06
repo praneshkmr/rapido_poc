@@ -8,9 +8,11 @@ RandomLocationGenerator.generateRandomLocations = function (data, callback) {
     var count = data.count;
     var topLeft = data.topLeft;
     var bottomRight = data.bottomRight;
+    var type = data.type;
     var randomLocations = [];
     for (var i = 0; i < count; i++) {
         var randomLocation = getRandomLocation(topLeft, bottomRight);
+        randomLocation.type = type;
         randomLocations.push(randomLocation);
     }
     callback(null, randomLocations);
