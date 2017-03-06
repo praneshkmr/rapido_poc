@@ -12,8 +12,11 @@ RandomLocationGenerator.generateRandomLocations = function (data, callback) {
     var randomLocations = [];
     for (var i = 0; i < count; i++) {
         var randomLocation = getRandomLocation(topLeft, bottomRight);
-        randomLocation.type = type;
-        randomLocations.push(randomLocation);
+        var result = {
+            location: randomLocation,
+            type: type
+        }
+        randomLocations.push(result);
     }
     callback(null, randomLocations);
 }
