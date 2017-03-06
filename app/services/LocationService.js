@@ -7,12 +7,12 @@ var locationSearch = new LocationSearch();
 
 var BOUNDARY = {
     topLeft: {
-        lat: 13.011134,
-        lon: 77.659195
+        lat: 13.169339,
+        lon: 77.428368
     },
     bottomRight: {
-        lat: 13.197935,
-        lon: 77.703546
+        lat: 12.720980,
+        lon: 77.876061
     }
 }
 
@@ -94,8 +94,8 @@ function transformBoundaryResult(result, callback) {
             geoHash: bucket.key,
             totalCount: bucket.doc_count,
             count: {
-                drivers: null,
-                customers: null
+                drivers: 0,
+                customers: 0
             }
         }
         bucket.types.buckets.forEach(function (type) {
