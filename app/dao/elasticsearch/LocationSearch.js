@@ -1,24 +1,16 @@
+var config = require('config');
 var elasticsearch = require('elasticsearch');
 
 var URIUtil = require("./../../utils/URIUtil");
 var uriUtil = new URIUtil();
 
-var elasticsearchConfig = {
-    "host": "localhost",
-    "port": 9200,
-    "username": "",
-    "password": "",
-    "indices": {
-        "index": "rapido",
-        "type_locations": "locations"
-    }
-};
+var elasticsearchConfig = config.get('elasticsearch');
+var elasticsearchIndexConfig = config.get('elasticsearch.indices');
 
 var client = elasticsearch.Client({
     hosts: [uriUtil.createElasticsearchUri(elasticsearchConfig)]
 });
 
-var elasticsearchIndexConfig = elasticsearchConfig.indices;
 var INDEX = elasticsearchIndexConfig.index;
 var TYPE_LOCATIONS = elasticsearchIndexConfig.type_locations;
 
