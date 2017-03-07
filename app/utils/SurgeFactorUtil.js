@@ -4,7 +4,6 @@ function SurgeFactorUtil() {
 
 SurgeFactorUtil.calculateSurgeFactorPerCluster = function (clusters) {
     clusters.forEach(function (cluster) {
-        console.log(cluster);
         var surgeFactor = 0;
         var count = cluster.count;
         if (count.drivers !== 0) {
@@ -24,7 +23,6 @@ SurgeFactorUtil.calculateSurgeFactorPerCluster = function (clusters) {
         }
         cluster.surgeFactor = surgeFactor;
     }, this);
-    console.log(clusters);
 }
 
 module.exports = SurgeFactorUtil;

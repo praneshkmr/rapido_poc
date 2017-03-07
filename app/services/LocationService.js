@@ -77,13 +77,13 @@ LocationService.prototype.setRandomLocations = function (callback) {
     });
 }
 
-LocationService.prototype.buildBoundary = function (callback) {
-    locationSearch.buildBoundary(function (err, result) {
+LocationService.prototype.createClusters = function (callback) {
+    locationSearch.createClusters(function (err, result) {
         if (err) {
             callback(err);
         }
         else {
-            transformBoundaryResult(result, function (err, result) {
+            transformCreateClustersResult(result, function (err, result) {
                 if (err) {
                     callback(err);
                 }
@@ -96,7 +96,7 @@ LocationService.prototype.buildBoundary = function (callback) {
     });
 }
 
-function transformBoundaryResult(result, callback) {
+function transformCreateClustersResult(result, callback) {
     var buckets = result.aggregations.bangaloreClusters.buckets;
     var clusters = []
     buckets.forEach(function (bucket) {

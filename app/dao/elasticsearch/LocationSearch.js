@@ -35,7 +35,7 @@ LocationSearch.prototype.indexLocations = function (locations, callback) {
     }, callback);
 }
 
-LocationSearch.prototype.buildBoundary = function (callback) {
+LocationSearch.prototype.createClusters = function (callback) {
     client.search({
         index: INDEX,
         body: {

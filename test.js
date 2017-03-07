@@ -40,7 +40,7 @@
 
 var LocationService = require('./app/services/LocationService');
 var locationService = new LocationService();
-locationService.buildBoundary(function (err, result) {
+locationService.createClusters(function (err, result) {
     if (err) {
         console.log(err);
     }
