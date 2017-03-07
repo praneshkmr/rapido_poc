@@ -5,6 +5,8 @@ var RandomLocationGenerator = require('./../utils/RandomLocationGenerator');
 var LocationSearch = require('./../dao/elasticsearch/LocationSearch');
 var locationSearch = new LocationSearch();
 
+var SurgeFactorUtil = require('./../utils/SurgeFactorUtil');
+
 var BOUNDARY = {
     topLeft: {
         lat: 13.169339,
@@ -81,7 +83,15 @@ LocationService.prototype.buildBoundary = function (callback) {
             callback(err);
         }
         else {
-            transformBoundaryResult(result, callback);
+            transformBoundaryResult(result, function (err, result) {
+                if (err) {
+                    callback(err);
+                }
+                else {
+                    SurgeFactorUtil.calculateSurgeFactorPerCluster(result);
+                    callback(null, result);
+                }
+            });
         }
     });
 }
