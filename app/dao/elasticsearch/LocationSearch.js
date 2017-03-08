@@ -78,4 +78,17 @@ LocationSearch.prototype.createClusters = function (callback) {
     });
 }
 
+LocationSearch.prototype.getAllLocations = function (callback) {
+    client.search({
+        index: INDEX,
+        type: TYPE_LOCATIONS,
+        size: 400,
+        q: "*.*"
+    }).then(function (resp) {
+        callback(null, resp);
+    }, function (err) {
+        callback(err);
+    });
+}
+
 module.exports = LocationSearch;

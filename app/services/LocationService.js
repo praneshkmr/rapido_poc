@@ -96,6 +96,27 @@ LocationService.prototype.createClusters = function (callback) {
     });
 }
 
+LocationService.prototype.getAllLocations = function (callback) {
+    locationSearch.getAllLocations(function (err, result) {
+        if (err) {
+            callback(err);
+        }
+        else {
+            transformGetAllLocationResult(result, callback);
+        }
+    });
+}
+
+function transformGetAllLocationResult(result, callback) {
+    var locationDocs = result.hits.hits;
+    var locations = [];
+    locationDocs.forEach(function (doc) {
+        var location = doc._source;
+        locations.push(location);
+    }, this);
+    callback(null, locations);
+}
+
 function transformCreateClustersResult(result, callback) {
     var buckets = result.aggregations.bangaloreClusters.buckets;
     var clusters = []
