@@ -1,5 +1,9 @@
+var config = require('config');
+
+var googleMapsConfig = config.get('googleMaps');
+
 var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyCrDtWlV-qMgRE201xfCTZ9EyzzKbACkd0'
+    key: googleMapsConfig.apiKey
 });
 
 function GoogleMapsService() {

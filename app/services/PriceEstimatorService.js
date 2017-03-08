@@ -1,9 +1,13 @@
+var config = require('config');
+
 var GoogleMapsService = require("./GoogleMapsService");
 var googleMapsService = new GoogleMapsService();
 
-var BASE_FARE = 15;
-var PER_KM_CHARGE = 5;
-var PER_MIN_CHARGE = 1;
+var priceConfig = config.get('price');
+
+var BASE_FARE = priceConfig.baseFare;
+var PER_KM_CHARGE = priceConfig.perKm;
+var PER_MIN_CHARGE = priceConfig.perMin;
 
 function PriceEstimatorService() {
 

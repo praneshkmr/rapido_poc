@@ -8,5 +8,25 @@
             "index": "rapido",
             "type_locations": "locations"
         }
+    },
+    "googleMaps": {
+        "apiKey": "AIzaSyCrDtWlV-qMgRE201xfCTZ9EyzzKbACkd0"
+    },
+    "boundary": {
+        "bangalore": {
+            "topLeft": {
+                "lat": 13.169339,
+                "lon": 77.428368
+            },
+            "bottomRight": {
+                "lat": 12.720980,
+                "lon": 77.876061
+            }
+        }
+    },
+    "price": {
+        "baseFare": 15,
+        "perKm": 5,
+        "perMin": 1
     }
 }

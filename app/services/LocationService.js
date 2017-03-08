@@ -1,4 +1,5 @@
 var async = require('async');
+var config = require('config');
 
 var RandomLocationGenerator = require('./../utils/RandomLocationGenerator');
 
@@ -7,16 +8,9 @@ var locationSearch = new LocationSearch();
 
 var SurgeFactorUtil = require('./../utils/SurgeFactorUtil');
 
-var BOUNDARY = {
-    topLeft: {
-        lat: 13.169339,
-        lon: 77.428368
-    },
-    bottomRight: {
-        lat: 12.720980,
-        lon: 77.876061
-    }
-}
+var boundaryConfig = config.get('boundary');
+
+var BOUNDARY = boundaryConfig.bangalore;
 
 function LocationService() {
 
