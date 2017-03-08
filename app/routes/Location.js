@@ -16,4 +16,16 @@ router.get('/all', function (req, res, next) {
     })
 });
 
+router.get('/clusters', function (req, res, next) {
+    locationService.createClusters(function(err, result){
+        if(err){
+            console.error(err);
+            res.status(500).send(err);
+        }
+        else{
+            res.send(result);
+        }
+    })
+});
+
 module.exports = router;

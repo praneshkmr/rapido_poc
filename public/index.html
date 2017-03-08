@@ -66,7 +66,8 @@
 
         </div>
         <div class="row">
-            <div id="map" class="col-md-2 col-md-offset-5" style="width:500px; height:500px"></div>
+            <div id="map1" class="col-md-2 col-md-offset-5" style="width:500px; height:500px"></div>
+            <div id="map2" class="col-md-2 col-md-offset-5" style="width:500px; height:500px"></div>
         </div>
 
     </div>
@@ -77,6 +78,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../dist/js/latlon-geohash.js"></script>
     <script>
         window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
     </script>
@@ -121,31 +123,66 @@
         }
     </script>
     <script>
-        var map = null;
+        var map1 = null;
+        var map2 = null;
         function initMap() {
             // Create a map object and specify the DOM element for display.
-            map = new google.maps.Map(document.getElementById('map'), {
+            map1 = new google.maps.Map(document.getElementById('map1'), {
+                center: { lat: 12.9716, lng: 77.5946 },
+                scrollwheel: false,
+                zoom: 10
+            });
+
+            map2 = new google.maps.Map(document.getElementById('map2'), {
                 center: { lat: 12.9716, lng: 77.5946 },
                 scrollwheel: false,
                 zoom: 10
             });
             getAllLocations();
+            getClusters();
         }
         function getAllLocations() {
             $.get("location/all", function (locations) {
                 locations.forEach(function (location) {
                     var data = {
                         position: {
-                            "lat":location.location.lat,
-                            "lng":location.location.lon
+                            "lat": location.location.lat,
+                            "lng": location.location.lon
                         },
-                        map: map
+                        map: map1,
+                        label: "C"
                     }
-                    if(location.type == "driver"){
-                        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-                        data.icon = image;
+                    if (location.type == "driver") {
+                        data.label = "D";
                     }
                     var marker = new google.maps.Marker(data);
+                }, this);
+            });
+        }
+        function getClusters() {
+            $.get("location/clusters", function (locations) {
+                locations.forEach(function (location) {
+                    console.log(location);
+                    var rectangle = new google.maps.Rectangle({
+                        map: map2,
+                        bounds: {
+                            north: Geohash.bounds(location.geoHash).ne.lat,
+                            south: Geohash.bounds(location.geoHash).sw.lat,
+                            east: Geohash.bounds(location.geoHash).ne.lon,
+                            west: Geohash.bounds(location.geoHash).sw.lon
+                        }
+                    });
+                    rectangle.addListener('click', function () {
+                        var infoWindow = new google.maps.InfoWindow();
+                        var contentString = 'Customers : ' + location.count.customers + ', Drivers : ' + location.count.drivers
+                            + ', Surge Factor : ' + location.surgeFactor;
+
+                        // Set the info window's content and position.
+                        infoWindow.setContent(contentString);
+                        var ne = rectangle.getBounds().getNorthEast();
+                        infoWindow.setPosition(ne);
+                        infoWindow.open(map2);
+                    });
                 }, this);
             });
         }
