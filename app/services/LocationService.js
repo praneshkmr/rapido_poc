@@ -9,6 +9,7 @@ var locationSearch = new LocationSearch();
 var SurgeFactorUtil = require('./../utils/SurgeFactorUtil');
 
 var boundaryConfig = config.get('boundary');
+var randomCountConfig = config.get('randomCount');
 
 var BOUNDARY = boundaryConfig.bangalore;
 
@@ -32,7 +33,7 @@ LocationService.prototype.setRandomLocations = function (callback) {
         },
         function (cb) {
             var data = {
-                count: 300,
+                count: randomCountConfig.customers,
                 type: "customer"
             }
             data.topLeft = BOUNDARY.topLeft;
@@ -49,7 +50,7 @@ LocationService.prototype.setRandomLocations = function (callback) {
         },
         function (cb) {
             var data = {
-                count: 100,
+                count: randomCountConfig.drivers,
                 type: "driver"
             }
             data.topLeft = BOUNDARY.topLeft;
@@ -65,7 +66,6 @@ LocationService.prototype.setRandomLocations = function (callback) {
             });
         },
         function (cb) {
-            console.log(locations);
             locationSearch.indexLocations(locations, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -77,7 +77,6 @@ LocationService.prototype.setRandomLocations = function (callback) {
             })
         }
     ], function (err, result) {
-        console.log(result);
         callback(err, result);
     });
 }

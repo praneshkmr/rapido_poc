@@ -28,5 +28,9 @@
         "baseFare": 15,
         "perKm": 5,
         "perMin": 1
+    },
+    "randomCount": {
+        "drivers": 100,
+        "customers": 300
     }
 }
