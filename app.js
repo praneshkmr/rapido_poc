@@ -23,8 +23,10 @@ var location = require('./app/dao/elasticsearch/init');
 
 
 var location = require('./app/routes/Location');
+var price = require('./app/routes/Price');
 
 app.use('/location', location);
+app.use('/price', price);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
