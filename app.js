@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var location = require('./app/dao/elasticsearch/init');
+
+
 var location = require('./app/routes/Location');
 
 app.use('/location', location);

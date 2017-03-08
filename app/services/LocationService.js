@@ -26,6 +26,17 @@ LocationService.prototype.setRandomLocations = function (callback) {
     var locations = [];
     async.waterfall([
         function (cb) {
+            locationSearch.deleteLocations(function (err, result) {
+                if (err) {
+                    console.log(err);
+                    cb(err);
+                }
+                else {
+                    cb();
+                }
+            })
+        },
+        function (cb) {
             var data = {
                 count: 300,
                 type: "customer"

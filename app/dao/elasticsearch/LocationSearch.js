@@ -35,6 +35,29 @@ LocationSearch.prototype.indexLocations = function (locations, callback) {
     }, callback);
 }
 
+LocationSearch.prototype.deleteLocations = function (callback) {
+    client.search({
+        index: INDEX,
+        type: TYPE_LOCATIONS,
+        size: 1000,
+    }).then(function (resp) {
+        var indexRequests = []
+        resp.hits.hits.forEach(function (index) {
+            indexRequests.push({ delete: { _index: INDEX, _type: TYPE_LOCATIONS, _id: index._id } });
+        }, this);
+        if (indexRequests.length > 0) {
+            client.bulk({
+                body: indexRequests
+            }, callback);
+        }
+        else {
+            callback();
+        }
+    }, function (err) {
+        callback(err);
+    });
+}
+
 LocationSearch.prototype.createClusters = function (callback) {
     client.search({
         index: INDEX,
@@ -82,7 +105,7 @@ LocationSearch.prototype.getAllLocations = function (callback) {
     client.search({
         index: INDEX,
         type: TYPE_LOCATIONS,
-        size: 400,
+        size: 1000,
         q: "*.*"
     }).then(function (resp) {
         callback(null, resp);

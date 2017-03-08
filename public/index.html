@@ -34,36 +34,20 @@
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                    aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-                <a class="navbar-brand" href="#">Project name</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-    </nav>
-
     <div class="container-fluid">
 
         <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead" id="demo">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones
-                HTML document.</p>
+            <h1>Customer and Drivers Clustering</h1>
+            <p class="lead">Below Maps show the Raw Locations(left) of Customers and Drivers and Clustered Locations(Right) of the Same.</p>
+            <p>
+                Click on each Clustered Rectangle to show more Info.</p>
 
+        </div>
+        <div class="row">
+            <a class="btn btn-primary col-md-3 col-md-offset-4" id="btnGenLocation">Generate Random Locations</a>
+            <br>
+            <br>
+            <br>
         </div>
         <div class="row">
             <div id="map1" class="col-md-4 col-md-offset-1" style="width:500px; height:500px"></div>
@@ -162,7 +146,6 @@
         function getClusters() {
             $.get("location/clusters", function (locations) {
                 locations.forEach(function (location) {
-                    console.log(location);
                     var rectangle = new google.maps.Rectangle({
                         map: map2,
                         bounds: {
@@ -186,6 +169,13 @@
                 }, this);
             });
         }
+    </script>
+    <script>
+        $("#btnGenLocation").click(function (e) {
+            $.post("location/random", function (result) {
+                location.reload();
+            });
+        });
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDtWlV-qMgRE201xfCTZ9EyzzKbACkd0&callback=initMap" async
         defer></script>
