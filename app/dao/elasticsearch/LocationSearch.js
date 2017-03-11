@@ -4,6 +4,7 @@ var elasticsearch = require('elasticsearch');
 var URIUtil = require("./../../utils/URIUtil");
 var uriUtil = new URIUtil();
 
+var boundaryConfig = config.get('boundary');
 var elasticsearchConfig = config.get('elasticsearch');
 var elasticsearchIndexConfig = config.get('elasticsearch.indices');
 
@@ -11,6 +12,7 @@ var client = elasticsearch.Client({
     hosts: [uriUtil.createElasticsearchUri(elasticsearchConfig)]
 });
 
+var BOUNDARY = boundaryConfig.bangalore;
 var INDEX = elasticsearchIndexConfig.index;
 var TYPE_LOCATIONS = elasticsearchIndexConfig.type_locations;
 
@@ -67,14 +69,8 @@ LocationSearch.prototype.createClusters = function (callback) {
                     "filter": {
                         "geo_bounding_box": {
                             "location": {
-                                "top_left": {
-                                    "lat": 13.169339,
-                                    "lon": 77.428368
-                                },
-                                "bottom_right": {
-                                    "lat": 12.720980,
-                                    "lon": 77.876061
-                                }
+                                "top_left": BOUNDARY.topLeft,
+                                "bottom_right": BOUNDARY.bottomRight
                             }
                         }
                     }

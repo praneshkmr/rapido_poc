@@ -7,7 +7,7 @@ var locationService = new LocationService();
 router.get('/all', function (req, res, next) {
     locationService.getAllLocations(function (err, result) {
         if (err) {
-            console.error(err);
+            console.log(err);
             res.status(500).send(err);
         }
         else {
@@ -19,7 +19,7 @@ router.get('/all', function (req, res, next) {
 router.get('/clusters', function (req, res, next) {
     locationService.createClusters(function (err, result) {
         if (err) {
-            console.error(err);
+            console.log(err);
             res.status(500).send(err);
         }
         else {
@@ -31,7 +31,7 @@ router.get('/clusters', function (req, res, next) {
 router.post('/random', function (req, res, next) {
     locationService.setRandomLocations(function (err, result) {
         if (err) {
-            console.error(err);
+            console.log(err);
             res.status(500).send(err);
         }
         else {
