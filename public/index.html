@@ -126,19 +126,25 @@
         startWebSocketConnection();
     </script>
     <script>
-        var x = document.getElementById("demo");
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
-                x.innerHTML = "Fetching Position. Please wait.";
             } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
+                console.log("Geolocation is not supported by this browser.");
             }
         }
         function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-                "<br>Longitude: " + position.coords.longitude;
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var payload = {
+                latitude: latitude,
+                longitude: longitude
+            }
+            ws.send(JSON.stringify(payload));
         }
+        setInterval(function () {
+            getLocation();
+        }, 5000);
     </script>
     <script>
         var map1 = null;
