@@ -116,6 +116,7 @@ function transformGetAllLocationResult(result, callback) {
     var locations = [];
     locationDocs.forEach(function (doc) {
         var location = doc._source;
+        location.id = doc._id;
         locations.push(location);
     }, this);
     callback(null, locations);
