@@ -141,8 +141,9 @@
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             var payload = {
-                latitude: latitude,
-                longitude: longitude
+                lat: latitude,
+                lon: longitude,
+                type: "driver"
             }
             if (id != null) {
                 payload.id = id;

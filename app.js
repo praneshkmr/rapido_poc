@@ -112,9 +112,10 @@ wss.on('connection', function connection(ws) {
     var data = JSON.parse(message);
     var location = {
       location: {
-        lat: data.latitude,
-        lon: data.longitude
+        lat: data.lat,
+        lon: data.lon
       },
+      type: data.type,
       id: data.id
     }
     if (data.id) {
