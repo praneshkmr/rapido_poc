@@ -115,6 +115,7 @@ LocationSearch.prototype.getAllLocations = function (callback) {
 }
 
 LocationSearch.prototype.updateLocation = function (location, callback) {
+    location.lastUpdated = new Date();
     client.update({
         index: INDEX,
         type: TYPE_LOCATIONS,
