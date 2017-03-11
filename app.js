@@ -124,19 +124,18 @@ wss.on('connection', function connection(ws) {
           console.log(err);
         }
         else {
-          wss.broadcast(JSON.stringify({ "type": "broadcast", "data": { id: location._id, latitude: data.latitude, longitude: data.longitude } }));
+          wss.broadcast(JSON.stringify({ "type": "broadcast", "data": { id: location._id, lat: data.lat, lon: data.lon } }));
         }
       });
     }
     else {
-      console.log("new");
       locationService.saveLocation([location], function (err, location) {
         if (err) {
           console.log(err);
         }
         else {
           ws.send(JSON.stringify({ "type": "id", "data": location._id }));
-          wss.broadcast(JSON.stringify({ "type": "broadcast", "data": { id: location._id, latitude: data.latitude, longitude: data.longitude } }));
+          wss.broadcast(JSON.stringify({ "type": "broadcast", "data": { id: location._id, lat: data.lat, lon: data.lon } }));
         }
       });
     }

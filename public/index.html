@@ -88,6 +88,14 @@
             <br>
         </div>
 
+        <div class="starter-template">
+            <h1>Live Location using WebSockets</h1>
+            <p class="lead">Below Map shows the Live Locations Feed from Client through WebSockets.</p>
+
+        </div>
+        <div class="row">
+            <div id="map3" class="col-md-4 col-md-offset-1" style="width:500px; height:500px"></div>
+        </div>
     </div>
     <!-- /.container -->
 
@@ -106,6 +114,7 @@
     <script>
         var ws = null;
         var id = null;
+        var mapMarkerMap = {};
         function startWebSocketConnection() {
             if (window.location.protocol != "https:") {
                 ws = new WebSocket('ws://' + location.host);
@@ -115,10 +124,23 @@
             }
             ws.onmessage = function (event) {
                 if (event.data) {
-                    var eventData = JSON.parse(event.data);
-                    console.log(eventData);
-                    if (eventData.type == "id") {
-                        id = eventData.data;
+                    var data = JSON.parse(event.data);
+                    console.log(data);
+                    if (data.type == "id") {
+                        id = data.data;
+                    }
+                    else if (data.type == "broadcast") {
+                        if (mapMarkerMap[data.data.id]) {
+                            var marker = mapMarkerMap[data.data.id];
+                            marker.setPosition({ lat: data.data.lat, lng: data.data.lon });
+                        }
+                        else {
+                            var marker = new google.maps.Marker({
+                                position: { lat: data.data.lat, lng: data.data.lon },
+                                map: map3,
+                            });
+                            mapMarkerMap[data.data.id] = marker;
+                        }
                     }
                 }
             };
@@ -140,6 +162,7 @@
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+            map3.setCenter({ lat: latitude, lng: longitude });
             var payload = {
                 lat: latitude,
                 lon: longitude,
@@ -157,19 +180,17 @@
     <script>
         var map1 = null;
         var map2 = null;
+        var map3 = null;
         function initMap() {
-            // Create a map object and specify the DOM element for display.
-            map1 = new google.maps.Map(document.getElementById('map1'), {
+            var options = {
                 center: { lat: 12.9716, lng: 77.5946 },
                 scrollwheel: false,
                 zoom: 10
-            });
+            };
+            map1 = new google.maps.Map(document.getElementById('map1'), options);
+            map2 = new google.maps.Map(document.getElementById('map2'), options);
+            map3 = new google.maps.Map(document.getElementById('map3'), options);
 
-            map2 = new google.maps.Map(document.getElementById('map2'), {
-                center: { lat: 12.9716, lng: 77.5946 },
-                scrollwheel: false,
-                zoom: 10
-            });
             getAllLocations();
             getClusters();
         }
