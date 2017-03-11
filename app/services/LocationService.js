@@ -147,4 +147,21 @@ function transformCreateClustersResult(result, callback) {
     callback(null, clusters);
 }
 
+LocationService.prototype.saveLocation = function (locations, callback) {
+    locationSearch.indexLocations(locations, function (err, result) {
+        if (err) {
+            callback(err);
+        }
+        else {
+            callback(null, result.items[0].create);
+        }
+    })
+}
+
+LocationService.prototype.updateLocation = function (location, callback) {
+    locationSearch.updateLocation(location, function (err, result) {
+        callback(err, result);
+    });
+}
+
 module.exports = LocationService;

@@ -105,6 +105,7 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script>
         var ws = null;
+        var id = null;
         function startWebSocketConnection() {
             if (window.location.protocol != "https:") {
                 ws = new WebSocket('ws://' + location.host);
@@ -116,6 +117,9 @@
                 if (event.data) {
                     var eventData = JSON.parse(event.data);
                     console.log(eventData);
+                    if (eventData.type == "id") {
+                        id = eventData.data;
+                    }
                 }
             };
             ws.onclose = function () {
@@ -139,6 +143,9 @@
             var payload = {
                 latitude: latitude,
                 longitude: longitude
+            }
+            if (id != null) {
+                payload.id = id;
             }
             ws.send(JSON.stringify(payload));
         }

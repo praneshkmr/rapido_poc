@@ -114,4 +114,17 @@ LocationSearch.prototype.getAllLocations = function (callback) {
     });
 }
 
+LocationSearch.prototype.updateLocation = function (location, callback) {
+    client.update({
+        index: INDEX,
+        type: TYPE_LOCATIONS,
+        id: location.id,
+        body: {
+            doc: location
+        }
+    }, function (error, response) {
+        callback(error, response);
+    })
+}
+
 module.exports = LocationSearch;
